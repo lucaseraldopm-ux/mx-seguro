@@ -1,0 +1,9 @@
+# Query: localhost:3000
+# ContextLines: 1
+
+1 result - 1 file
+
+C:\Users\Lucas Eraldo\.gemini\antigravity\brain\f2806949-75e5-414e-908e-d0e362b4c367\implementation_plan.md.resolved:
+  44  
+  45: A URL base `http://10.0.0.101:3000/api` comportará os seguintes endpoints:
+  46  

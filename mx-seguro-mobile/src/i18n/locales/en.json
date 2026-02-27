@@ -1,0 +1,41 @@
+{
+    "common": {
+        "loading": "Loading...",
+        "error": "An error occurred.",
+        "save": "Save",
+        "saved_success": "Saved successfully!"
+    },
+    "map": {
+        "updated_ago": "Updated {{minutes}} min ago",
+        "sources_method": "Sources & method",
+        "layer_risk": "General risk",
+        "layer_incidents": "Recent incidents",
+        "layer_reports": "User reports",
+        "layer_alerts": "Alerts",
+        "btn_activate_alerts": "Activate alerts",
+        "btn_save_zone": "Save zone",
+        "report_here": "{{count}} reports here",
+        "risk_high": "HIGH",
+        "risk_medium": "MEDIUM",
+        "risk_low": "LOW"
+    },
+    "sources": {
+        "status_title": "Sources Status",
+        "official": "Official Sources",
+        "user_reports": "User Reports",
+        "aggregators": "News Aggregators",
+        "status_ok": "OK",
+        "status_partial": "Partial",
+        "status_down": "Unavailable"
+    },
+    "reports": {
+        "title_new": "New Report",
+        "placeholder_desc": "Short description...",
+        "btn_submit": "Submit",
+        "status_review": "Under review",
+        "success_msg": "Report submitted for moderation."
+    },
+    "settings": {
+        "change_language": "Change Language"
+    }
+}

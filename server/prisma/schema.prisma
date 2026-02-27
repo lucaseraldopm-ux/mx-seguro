@@ -1,0 +1,60 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Incident {
+  id          String   @id @default(uuid())
+  title       String
+  category    String
+  latitude    Float
+  longitude   Float
+  date        DateTime @default(now())
+  riskLevel   String
+  description String
+  confidence  String
+  sourceTag   String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model RiskOverlay {
+  id          String   @id @default(uuid())
+  name        String
+  type        String   // 'region' or 'cell'
+  riskLevel   String
+  latitude    Float?
+  longitude   Float?
+  coordinates Json?    // Array of objects {latitude, longitude}
+  confidence  String
+  description String?
+  sourceTag   String?
+  lastUpdate  DateTime @default(now())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model UserReport {
+  id          String   @id @default(uuid())
+  category    String
+  description String
+  latitude    Float
+  longitude   Float
+  date        DateTime @default(now())
+  status      String   @default("En revisión")
+  ip          String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model StatusInfo {
+  id               Int      @id @default(1)
+  coverage         String
+  officialStatus   String   @default("OK")
+  reportStatus     String   @default("OK")
+  aggregatorStatus String   @default("PARCIAL")
+  lastUpdatedAt    DateTime @default(now())
+}

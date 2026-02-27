@@ -1,0 +1,38 @@
+[
+    {
+        "id": "event-1",
+        "title": "Bloqueio Rodoviário na Autopista 85",
+        "category": "Bloqueio",
+        "coordinate": {
+            "latitude": 25.43,
+            "longitude": -100.0
+        },
+        "date": "2026-02-26T18:00:00Z",
+        "riskLevel": "HIGH",
+        "description": "Relatos de paralisação e bloqueio com veículos na rodovia entre Monterrey e Nuevo Laredo. Evite a região."
+    },
+    {
+        "id": "event-2",
+        "title": "Protesto massivo no Zócalo",
+        "category": "Protesto",
+        "coordinate": {
+            "latitude": 19.4326,
+            "longitude": -99.1332
+        },
+        "date": "2026-02-27T10:00:00Z",
+        "riskLevel": "MEDIUM",
+        "description": "Manifestação programada com grande aglomeração. Atrasos severos no trânsito esperados ao redor do centro histórico."
+    },
+    {
+        "id": "event-3",
+        "title": "Aviso Preventivo: Confrontos armados reportados",
+        "category": "Confronto",
+        "coordinate": {
+            "latitude": 24.8,
+            "longitude": -107.4
+        },
+        "date": "2026-02-25T23:30:00Z",
+        "riskLevel": "HIGH",
+        "description": "Tiroteios relatados na região metropolitana de Culiacán durante a madrugada. A polícia local está em operação ativa."
+    }
+]

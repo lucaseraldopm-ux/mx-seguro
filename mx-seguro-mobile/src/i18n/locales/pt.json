@@ -1,0 +1,41 @@
+{
+    "common": {
+        "loading": "Carregando...",
+        "error": "Ocorreu um erro.",
+        "save": "Salvar",
+        "saved_success": "Salvo com sucesso!"
+    },
+    "map": {
+        "updated_ago": "Atualizado há {{minutes}} min",
+        "sources_method": "Fontes e método",
+        "layer_risk": "Risco geral",
+        "layer_incidents": "Incidentes recentes",
+        "layer_reports": "Relatos de usuários",
+        "layer_alerts": "Alertas",
+        "btn_activate_alerts": "Ativar alertas",
+        "btn_save_zone": "Salvar zona",
+        "report_here": "{{count}} relatos aqui",
+        "risk_high": "ALTO",
+        "risk_medium": "MÉDIO",
+        "risk_low": "BAIXO"
+    },
+    "sources": {
+        "status_title": "Status das Fontes",
+        "official": "Fontes Oficiais",
+        "user_reports": "Relatos de Usuários",
+        "aggregators": "Agregadores de Notícias",
+        "status_ok": "OK",
+        "status_partial": "Parcial",
+        "status_down": "Indisponível"
+    },
+    "reports": {
+        "title_new": "Novo Relato",
+        "placeholder_desc": "Breve descrição...",
+        "btn_submit": "Enviar",
+        "status_review": "Em revisão",
+        "success_msg": "Relato enviado para moderação."
+    },
+    "settings": {
+        "change_language": "Mudar Idioma"
+    }
+}

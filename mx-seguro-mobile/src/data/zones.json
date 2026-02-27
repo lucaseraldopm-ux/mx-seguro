@@ -1,0 +1,44 @@
+[
+  {
+    "id": "zone-1",
+    "name": "Região Metropolitana da Cidade do México",
+    "riskLevel": "MEDIUM",
+    "coordinates": [
+      { "latitude": 19.5, "longitude": -99.3 },
+      { "latitude": 19.5, "longitude": -98.9 },
+      { "latitude": 19.2, "longitude": -98.9 },
+      { "latitude": 19.2, "longitude": -99.3 }
+    ],
+    "description": "Bairros periféricos apresentam maior incidência de furtos e roubos. O centro financeiro tem forte presença policial, risco reduzido.",
+    "lastUpdate": "2026-02-27T00:00:00Z",
+    "sources": ["Secretaría de Seguridad Ciudadana", "Relatório Local de Monitoramento"]
+  },
+  {
+    "id": "zone-2",
+    "name": "Fronteira Norte - Reynosa/Matamoros",
+    "riskLevel": "HIGH",
+    "coordinates": [
+      { "latitude": 26.1, "longitude": -98.4 },
+      { "latitude": 26.1, "longitude": -97.5 },
+      { "latitude": 25.7, "longitude": -97.5 },
+      { "latitude": 25.7, "longitude": -98.4 }
+    ],
+    "description": "Área com alta incidência de confrontos entre grupos armados. Recomendada extrema cautela e evitar viagens rodoviárias noturnas.",
+    "lastUpdate": "2026-02-26T14:30:00Z",
+    "sources": ["Alerta Consular EUA", "Observatório Cidadão"]
+  },
+  {
+    "id": "zone-3",
+    "name": "Riviera Maya (Cancún/Tulum)",
+    "riskLevel": "LOW",
+    "coordinates": [
+      { "latitude": 21.2, "longitude": -86.9 },
+      { "latitude": 21.2, "longitude": -86.7 },
+      { "latitude": 20.2, "longitude": -87.5 },
+      { "latitude": 20.2, "longitude": -87.8 }
+    ],
+    "description": "Zonas turísticas fortemente patrulhadas. Risco focado em crimes de oportunidade (furtos) e não em violência estrutural.",
+    "lastUpdate": "2026-02-20T09:00:00Z",
+    "sources": ["Secretaría de Turismo", "Polícia Turística Estadual"]
+  }
+]
