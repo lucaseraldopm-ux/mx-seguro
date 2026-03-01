@@ -2,24 +2,20 @@ const express = require("express");
 const cors = require("cors");
 const rateLimit = require("express-rate-limit");
 
-// Se você já está usando Prisma no projeto, mantém import pra /status (ping)
-// (se não tiver, pode apagar essas 2 linhas)
-const { prisma } = require("./adapters/SourceAdapter");
-
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(cors());
 app.use(express.json());
 
-// Limiter (anti-spam) para reports
+// Limiter para evitar spam de reports (max 5 por IP a cada 15 min)
 const reportLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
   max: 5,
   message: { error: "Demasiadas requisiciones, por favor intenta más tarde." },
 });
 
-// Mock data (pra app funcionar agora, depois a gente liga no banco)
+// Mock “DB” em memória
 let reports = [];
 
 let incidents = [
@@ -79,44 +75,24 @@ let globalStatus = {
   },
 };
 
-// Home/health
+// Healthcheck
 app.get("/", (req, res) => res.send("mx-seguro-api up"));
-
-// Status (com ping no banco se prisma existir)
-app.get("/status", async (req, res) => {
-  try {
-    if (prisma?.$queryRaw) {
-      await prisma.$queryRaw`SELECT 1`;
-    }
-    res.json({
-      ok: true,
-      lastUpdatedAt: new Date().toISOString(),
-      sources: { mock: true },
-      coverage: "mock",
-    });
-  } catch (e) {
-    res.status(200).json({
-      ok: true,
-      db: "warning",
-      message: String(e?.message || e),
-      lastUpdatedAt: new Date().toISOString(),
-      sources: { mock: true },
-      coverage: "mock",
-    });
-  }
-});
-
-// 1) GET /api/status (app)
-app.get("/api/status", (req, res) => {
+app.get("/status", (req, res) => {
   res.json({
-    ...globalStatus,
+    ok: true,
     lastUpdatedAt: new Date().toISOString(),
+    sources: { mock: true },
+    coverage: "mock",
   });
 });
 
-// 2) GET /risk (app)
-app.get("/risk", (req, res) => {
-  const { zoomLevel } = req.query;
+// API
+app.get("/api/status", (req, res) => {
+  res.json({ ...globalStatus, lastUpdatedAt: new Date().toISOString() });
+});
+
+app.get("/api/risk", (req, res) => {
+  const zoomLevel = String(req.query.zoomLevel || "close");
 
   if (zoomLevel === "far") {
     return res.json([
@@ -159,7 +135,6 @@ app.get("/risk", (req, res) => {
     ]);
   }
 
-  // close (grid/polígono)
   return res.json([
     {
       id: "grid-1",
@@ -196,14 +171,10 @@ app.get("/risk", (req, res) => {
   ]);
 });
 
-// 3) GET /incidents (app)
-app.get("/incidents", (req, res) => {
-  res.json(incidents);
-});
+app.get("/api/incidents", (req, res) => res.json(incidents));
 
-// 4) POST /reports (app)
-app.post("/reports", reportLimiter, (req, res) => {
-  const { category, description, coordinate } = req.body;
+app.post("/api/reports", reportLimiter, (req, res) => {
+  const { category, description, coordinate } = req.body || {};
 
   if (!category || !description || !coordinate) {
     return res.status(400).json({ error: "Faltan campos obligatorios" });
@@ -233,8 +204,7 @@ app.post("/reports", reportLimiter, (req, res) => {
   res.status(201).json(newReport);
 });
 
-// 5) GET /reports (clusters) (app)
-app.get("/reports", (req, res) => {
+app.get("/api/reports", (req, res) => {
   const verified = reports.filter((r) => r.status === "Verificado");
 
   const aggregated = {};
@@ -262,13 +232,28 @@ app.get("/reports", (req, res) => {
   res.json(clusteredResponse);
 });
 
-// Compat: mantém /api/* também (caso alguma tela use)
-app.get("/api/risk", (req, res) => {
-  req.url = "/risk" + (req.url.includes("?") ? req.url.slice(req.url.indexOf("?")) : "");
+// Aliases sem /api (pra abrir no navegador fácil)
+app.get("/risk", (req, res) => {
+  req.url = "/api/risk";
   return app._router.handle(req, res, () => {});
 });
-app.get("/api/incidents", (req, res) => app._router.handle({ ...req, url: "/incidents" }, res, () => {}));
-app.get("/api/reports", (req, res) => app._router.handle({ ...req, url: "/reports" }, res, () => {}));
-app.post("/api/reports", reportLimiter, (req, res) => app._router.handle({ ...req, url: "/reports" }, res, () => {}));
+app.get("/incidents", (req, res) => {
+  req.url = "/api/incidents";
+  return app._router.handle(req, res, () => {});
+});
+app.get("/reports", (req, res) => {
+  req.url = "/api/reports";
+  return app._router.handle(req, res, () => {});
+});
+app.post("/reports", reportLimiter, (req, res) => {
+  req.url = "/api/reports";
+  return app._router.handle(req, res, () => {});
+});
+
+// Erro em JSON (pra não aparecer “Internal Server Error” seco)
+app.use((err, req, res, next) => {
+  console.error(err);
+  res.status(500).json({ ok: false, error: "internal", message: String(err?.message || err) });
+});
 
 app.listen(PORT, () => console.log(`MX Seguro Backend rodando na porta ${PORT}`));
