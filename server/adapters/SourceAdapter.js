@@ -1,7 +1,17 @@
 const { PrismaClient } = require("@prisma/client");
 
-// No Render/Supabase, o Prisma usa automaticamente process.env.DATABASE_URL
-// (desde que a variável esteja configurada no Render).
 const prisma = new PrismaClient();
 
-module.exports = { prisma };
+// Mantém esses exports porque o index.js está importando eles.
+// Por enquanto são "no-op" (não fazem nada), só para o servidor subir.
+const MockOfficialAdapter = {
+  name: "MockOfficialAdapter",
+  run: async () => true,
+};
+
+const MockAggregatorAdapter = {
+  name: "MockAggregatorAdapter",
+  run: async () => true,
+};
+
+module.exports = { prisma, MockOfficialAdapter, MockAggregatorAdapter };
